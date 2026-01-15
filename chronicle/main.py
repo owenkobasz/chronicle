@@ -5,9 +5,9 @@ A console-based application to organize and catalog photos using metadata.
 """
 
 from pathlib import Path
-from organize_photos import organize_photos
-import settings
-from ascii_art import print_title
+from .organize_photos import organize_photos
+from . import settings
+from .ascii_art import print_title
 
 
 def display_menu():

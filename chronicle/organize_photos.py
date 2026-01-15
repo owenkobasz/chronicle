@@ -377,7 +377,7 @@ def organize_photos(src_dir: Path, dest_dir: Path, move: bool = False, interacti
         separate_file_types: Whether to separate JPG/RAW/VIDEO into subfolders
     """
     import time
-    import settings as settings_module
+    from . import settings as settings_module
     
     # Load settings if not provided
     if organization_scheme is None:

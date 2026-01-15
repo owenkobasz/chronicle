@@ -72,10 +72,36 @@ Chronicle is designed to help photographers and video creators organize their di
 ## Installation
 
 ### Prerequisites
-- Python 3.7 or higher
-- pip (Python package manager)
+- Python 3.8 or higher
+- Poetry (recommended) or pip
 
-### Setup
+### Setup with Poetry (Recommended)
+
+1. **Install Poetry** (if not already installed):
+   ```bash
+   curl -sSL https://install.python-poetry.org | python3 -
+   ```
+   Or follow the [official Poetry installation guide](https://python-poetry.org/docs/#installation).
+
+2. **Clone or download this repository**
+
+3. **Install dependencies and create virtual environment**:
+   ```bash
+   poetry install
+   ```
+   This will automatically create a virtual environment and install all dependencies.
+
+4. **Activate the virtual environment** (optional):
+   ```bash
+   # Option 1: Install shell plugin (recommended for Poetry 2.0+)
+   poetry self add poetry-plugin-shell
+   poetry shell
+   
+   # Option 2: Manually activate the virtual environment
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+### Setup with pip (Alternative)
 
 1. **Clone or download this repository**
 
@@ -94,11 +120,24 @@ Chronicle is designed to help photographers and video creators organize their di
 
 ### Running the Application
 
+**With Poetry:**
+```bash
+# After installing with 'poetry install', you can run from anywhere:
+chronicle
+
+# Or use Poetry to run it:
+poetry run chronicle
+```
+
+**With pip:**
 ```bash
 # Activate virtual environment (if using one)
-source venv/bin/activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Run the application
+python -m chronicle.main
+# Or from the project directory:
+cd chronicle
 python main.py
 ```
 
@@ -162,10 +201,15 @@ If a photo is missing EXIF metadata (camera info or date), Chronicle will:
 
 ```
 chronicle/
-├── main.py              # Main application entry point with menu system
-├── organize_photos.py  # Core photo organization logic
-├── settings.py         # Settings management module
-├── requirements.txt   # Python dependencies
+├── chronicle/          # Main package
+│   ├── __init__.py    # Package initialization
+│   ├── main.py        # Main application entry point with menu system
+│   ├── organize_photos.py  # Core photo organization logic
+│   ├── settings.py    # Settings management module
+│   └── ascii_art.py   # ASCII art for title display
+├── pyproject.toml     # Poetry configuration and dependencies
+├── poetry.lock        # Locked dependency versions
+├── requirements.txt   # Python dependencies (legacy)
 ├── README.md          # This file
 └── .gitignore         # Git ignore rules
 ```
@@ -192,10 +236,14 @@ Settings are stored in JSON format at `~/.chronicle_settings.json`:
 
 ## Command Line Usage (Advanced)
 
-The `organize_photos.py` module can also be used directly from the command line:
+The `organize_photos` module can also be used directly from the command line:
 
 ```bash
-python organize_photos.py /path/to/source --dest /path/to/destination [--move] [--no-interactive]
+# With Poetry (after installation):
+poetry run python -m chronicle.organize_photos /path/to/source --dest /path/to/destination [--move] [--no-interactive]
+
+# Or if you have the package installed:
+python -m chronicle.organize_photos /path/to/source --dest /path/to/destination [--move] [--no-interactive]
 ```
 
 Options:
